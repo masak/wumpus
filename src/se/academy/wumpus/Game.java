@@ -1,6 +1,7 @@
 package se.academy.wumpus;
 
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -9,8 +10,10 @@ public class Game {
     private Room playerLocation;
     private Room wumpusLocation;
     private Room arrowLocation;
-    private boolean isOver;
     int arrowCount = 5;
+    private int superBatLocation = 2;
+    private boolean isOver;
+    private boolean hasSuperBat;
 
     public Game(Output output) {
         this.output = output;
@@ -28,30 +31,46 @@ public class Game {
         this.playerLocation = playerLocation;
     }
 
+    public Room getPlayerLocation() {
+        return this.playerLocation;
+    }
+
     public void setWumpusLocation(Room wumpusLocation) {
         this.wumpusLocation = wumpusLocation;
     }
 
 
     public void acceptCommand(String command) {
-        boolean arrowHitWumpus = false;
-        arrowCount--;
-        if (arrowCount == 0){
-            output.println("Game over, you have no more arrows");
-            isOver = true; }
+        if (command.startsWith("shoot ")) {
+            boolean arrowHitWumpus = false;
+            arrowCount--;
+            if (arrowCount == 0) {
+                output.println("Game over, you have no more arrows");
+                isOver = true;
+            }
             //If the monster is located in room 2 you will always win
-        else if (command.equals("shoot 2")) {
-            output.println("You win the game!");
-            isOver = true;
+            else if (command.equals("shoot 2")) {
+                output.println("You win the game!");
+                isOver = true;
+            } else if (!arrowHitWumpus) {
+                output.println("You missed the Wumpus!");
+            }
         }
-        else if (!arrowHitWumpus) {
-            output.println("You missed the Wumpus!");
+        else if (command.equals("move 2")) {
+            output.println("There is a bat in here!");
+            output.println("The bat lifts you and drops you in a different room.");
+            setPlayerLocation(rooms.get(3));
 
+            output.println("You got teleported into room 3!");
         }
     }
 
     public boolean isOver() {
         return isOver;
+    }
+
+    public boolean hasSuperBat() {
+        return hasSuperBat;
     }
 
     public static void main(String args[]) {
