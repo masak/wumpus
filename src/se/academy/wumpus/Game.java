@@ -1,5 +1,7 @@
 package se.academy.wumpus;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.Map;
 import java.util.Scanner;
 
@@ -40,6 +42,10 @@ public class Game {
     }
 
     public static void main(String args[]) {
+        char U = '\u033F';
+        System.out.println("Hunt the Wumpus\n" + "         "+U+U+U+U+U+U+"\n" );
+
+
         Game game = new Game();
         Scanner scanner = new Scanner(System.in);
         while (!game.isOver()) {
