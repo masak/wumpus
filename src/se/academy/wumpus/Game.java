@@ -1,6 +1,7 @@
 package se.academy.wumpus;
 
 import java.util.Map;
+import java.util.Scanner;
 
 public class Game {
     private Output output;
@@ -11,6 +12,10 @@ public class Game {
 
     public Game(Output output) {
         this.output = output;
+    }
+
+    public Game() {
+        this(message -> System.out.println(message));
     }
 
     public void setRooms(Map<Integer, Room> rooms) {
@@ -32,5 +37,15 @@ public class Game {
 
     public boolean isOver() {
         return isOver;
+    }
+
+    public static void main(String args[]) {
+        Game game = new Game();
+        Scanner scanner = new Scanner(System.in);
+        while (!game.isOver()) {
+            System.out.print("> ");
+            String command = scanner.nextLine();
+            game.acceptCommand(command);
+        }
     }
 }
