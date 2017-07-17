@@ -21,6 +21,7 @@ public class Winning {
         Room room2 = new Room(2);
         rooms.put(1, room1);
         rooms.put(2, room2);
+        Room.connect(room1, room2);
         game.setRooms(rooms);
         game.setPlayerLocation(room1);
         game.setWumpusLocation(room2);
