@@ -11,7 +11,6 @@ public class Game {
     int arrowCount = 5;
     private int superBatLocation = 2;
     private boolean isOver;
-    private boolean hasSuperBat;
     private List<Room> bottomlessPitLocations;
 
     public Game(Output output) {
@@ -83,10 +82,6 @@ public class Game {
 
     public boolean isOver() {
         return isOver;
-    }
-
-    public boolean hasSuperBat() {
-        return hasSuperBat;
     }
 
     public static void main(String args[]) {
