@@ -8,7 +8,9 @@ public class Game {
     private Map<Integer, Room> rooms;
     private Room playerLocation;
     private Room wumpusLocation;
+    private Room arrowLocation;
     private boolean isOver;
+    int arrowCount = 5;
 
     public Game(Output output) {
         this.output = output;
@@ -30,10 +32,21 @@ public class Game {
         this.wumpusLocation = wumpusLocation;
     }
 
+
     public void acceptCommand(String command) {
-        if (command.startsWith("shoot ")) {
+        boolean arrowHitWumpus = false;
+        arrowCount--;
+        if (arrowCount == 0){
+            output.println("Game over, you have no more arrows");
+            isOver = true; }
+            //If the monster is located in room 2 you will always win
+        else if (command.equals("shoot 2")) {
             output.println("You win the game!");
             isOver = true;
+        }
+        else if (!arrowHitWumpus) {
+            output.println("You missed the Wumpus!");
+
         }
     }
 
@@ -54,4 +67,7 @@ public class Game {
             game.acceptCommand(command);
         }
     }
+
+
 }
+
