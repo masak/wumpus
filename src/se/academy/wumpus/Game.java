@@ -31,8 +31,10 @@ public class Game {
     }
 
     public void acceptCommand(String command) {
-        output.println("You win the game!");
-        isOver = true;
+        if (command.startsWith("shoot ")) {
+            output.println("You win the game!");
+            isOver = true;
+        }
     }
 
     public boolean isOver() {
