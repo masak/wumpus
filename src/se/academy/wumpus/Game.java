@@ -76,7 +76,10 @@ public class Game {
                 isOver = false;
             }
         }
+        int roomNumber = Integer.parseInt(command.split(" ")[1]);
+        this.playerLocation = rooms.get(roomNumber);
     }
+
 
     public boolean isOver() {
         return isOver;
