@@ -1,8 +1,6 @@
 package se.academy.wumpus;
 
-import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     private Output output;
@@ -14,9 +12,11 @@ public class Game {
     private int superBatLocation = 2;
     private boolean isOver;
     private boolean hasSuperBat;
+    private List<Room> bottomlessPitLocations;
 
     public Game(Output output) {
         this.output = output;
+        this.bottomlessPitLocations = new ArrayList<>();
     }
 
     public Game() {
@@ -52,16 +52,29 @@ public class Game {
             else if (command.equals("shoot 2")) {
                 output.println("You win the game!");
                 isOver = true;
-            } else if (!arrowHitWumpus) {
+            }
+            else if (!arrowHitWumpus) {
                 output.println("You missed the Wumpus!");
             }
         }
-        else if (command.equals("move 2")) {
-            output.println("There is a bat in here!");
-            output.println("The bat lifts you and drops you in a different room.");
-            setPlayerLocation(rooms.get(3));
+        else if (command.startsWith("move ")) {
+            int roomNumber = Integer.parseInt(command.split(" ")[1]);
+            if (bottomlessPitLocations.stream().anyMatch(room -> room.getRoomNumber() == roomNumber)) {
+                output.println("There's a bottomless pit in this room. You fall into it.");
+                output.println("You lose!");
+                isOver = true;
+            }
+            else if (command.equals("move 2")) {
+                output.println("There is a bat in here!");
+                output.println("The bat lifts you and drops you in a different room.");
+                setPlayerLocation(rooms.get(3));
 
-            output.println("You got teleported into room 3!");
+                output.println("You got teleported into room 3!");
+            }
+            else {
+                output.println("You are still alive!");
+                isOver = false;
+            }
         }
     }
 
@@ -87,6 +100,8 @@ public class Game {
         }
     }
 
-
+    public void setBottomlessPitLocations(List<Room> bottomlessPitLocations) {
+        this.bottomlessPitLocations = bottomlessPitLocations;
+    }
 }
 
