@@ -3,7 +3,6 @@ package se.academy.wumpus.test;
 import org.junit.Assert;
 import org.junit.Test;
 import se.academy.wumpus.Game;
-import se.academy.wumpus.Output;
 import se.academy.wumpus.Room;
 
 import java.util.ArrayList;
@@ -11,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Winning {
+public class SuperBat {
     @Test
-    public void shootingTheWumpusMeansWinning() {
+    public void superBatTest() {
         List<String> outputLines = new ArrayList<>();
         Game game = new Game(message -> outputLines.add(message));
         Map<Integer, Room> rooms = new HashMap<>();
@@ -30,7 +29,11 @@ public class Winning {
         game.acceptCommand("move 2");
 
         Assert.assertTrue(outputLines.size() > 0);
-//        Assert.assertEquals("You win the game!", outputLines.get(outputLines.size() - 1));
-        Assert.assertTrue(game.isOver());
+        Assert.assertEquals("There is a bat in here!", outputLines.get(outputLines.size() - 3));
+        Assert.assertEquals("The bat lifts you and drops you in a different room.", outputLines.get(outputLines.size() - 2));
+        Assert.assertEquals("You got teleported into room 3!", outputLines.get(outputLines.size() - 1));
+        Assert.assertNotEquals(room2, game.getPlayerLocation());
+        Assert.assertEquals(room3, game.getPlayerLocation());
+        Assert.assertFalse(game.isOver());
     }
 }

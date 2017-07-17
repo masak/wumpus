@@ -5,7 +5,7 @@ public class Room {
 
     }
 
-    public static void connect(Room room1, Room room2) {
+    public static void connect(Room room1, Room room2, Room room3) {
 
     }
 }
