@@ -1,7 +1,5 @@
 package se.academy.wumpus;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.Map;
 import java.util.Scanner;
 
